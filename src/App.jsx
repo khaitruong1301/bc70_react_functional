@@ -7,6 +7,9 @@ import ChangeNumber from './DemoState/ChangeNumber'
 import ChangeFontSize from './DemoState/ChangeFontSize'
 import TinkerApp from './DemoState/TinkerApp'
 import ChangeCarColor from './DemoState/ChangeCarColor'
+import DemoProps from './props/DemoProps'
+import RenderWithMap from './RenderWithMap/RenderWithMap'
+import BTProductList from './RenderWithMap/BTProductList/BTProductList'
 
 const App = () => {
   return (
@@ -18,8 +21,10 @@ const App = () => {
         {/* <ChangeNumber /> */}
         {/* <ChangeFontSize /> */}
         {/* <TinkerApp /> */}
-        <ChangeCarColor />
-
+        {/* <ChangeCarColor /> */}
+        {/* <DemoProps /> */}
+        {/* <RenderWithMap /> */}
+        <BTProductList />
     </div>
   )
 }
