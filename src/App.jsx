@@ -1,5 +1,5 @@
 //rafce
-import React from 'react'
+import React, { useState } from 'react'
 import Databinding from './databinding/Databinding'
 import DemoHandleEvent from './eventHandler/DemoHandleEvent'
 import DemoRenderCondition from './renderCondition/DemoRenderCondition'
@@ -10,8 +10,11 @@ import ChangeCarColor from './DemoState/ChangeCarColor'
 import DemoProps from './props/DemoProps'
 import RenderWithMap from './RenderWithMap/RenderWithMap'
 import BTProductList from './RenderWithMap/BTProductList/BTProductList'
+import DanhSachSanPham from './LiftingStateup/DanhSachSanPham'
+import EXCarStore from './LiftingStateup/EXCarStore/EXCarStore'
 
 const App = () => {
+  
   return (
     <div style={{marginBottom:'500px'}}>
         {/* <Databinding /> */}
@@ -24,7 +27,9 @@ const App = () => {
         {/* <ChangeCarColor /> */}
         {/* <DemoProps /> */}
         {/* <RenderWithMap /> */}
-        <BTProductList />
+        {/* <BTProductList /> */}
+        <DanhSachSanPham />
+        {/* <EXCarStore /> */}
     </div>
   )
 }
