@@ -21,21 +21,78 @@ const DanhSachSanPham = () => {
         "hinhAnh": "./img/applephone.jpg"
     });
 
-    const [gioHang,setGioHang] = useState([
-        { "maSP": 2, "tenSP": "Meizu 16Xs", "giaBan": 7600000, "hinhAnh": "./img/meizuphone.jpg",soLuong:2 },
-        { "maSP": 2, "tenSP": "Meizu 16Xs", "giaBan": 7600000, "hinhAnh": "./img/meizuphone.jpg",soLuong:2 }
+    let [gioHang, setGioHang] = useState([
+        // { "maSP": 2, "tenSP": "Meizu 16Xs", "giaBan": 7600000, "hinhAnh": "./img/meizuphone.jpg",soLuong:2 },
+        // { "maSP": 2, "tenSP": "Meizu 16Xs", "giaBan": 7600000, "hinhAnh": "./img/meizuphone.jpg",soLuong:2 }
     ]);
     //state đặt ở đâu thì hàm xử lý setState sẽ nằm trên component đó
     const themGioHang = (spClick) => {
-        //Xử lý setState tại hàm này
-        const gioHangNew = [...gioHang,spClick];
-        setGioHang(gioHangNew)
+        //Tạo ra sản phẩm có số lượng
+        const spGioHang = { ...spClick, soLuong: 1 };
+        //Khi click vào themGioHang => Có 2 trường hợp
+        /**
+            + th1: Sản phẩm đã có trong giỏ hàng -> lấy ra và tăng số lượng
+            + th2: Sản phẩm chưa tồn tại trong giỏ hàng -> thêm vào mảng giỏ hàng
+         */
+        const sp = gioHang.find(item => item.maSP === spGioHang.maSP);
+        if (sp) {
+            sp.soLuong += 1;
+        } else {
+            gioHang = [...gioHang, spGioHang];
+        }
+        //Cập nhật lại giỏ hàng vào state
+        let gioHangUpdate = [...gioHang];
+        setGioHang(gioHangUpdate)
     }
 
+    const xoaGioHang = (maSPClick) => {
+        console.log(maSPClick);
+        //Xử lý xoá
+        let gioHangUpdate = [...gioHang.filter(item => item.maSP !== maSPClick)];
+        //setState
+        setGioHang(gioHangUpdate);
+    }
+
+
+    const tangGiamSoLuong = (maSPClick,soLuong) => { // maSP , 1 hoặc -1
+        //Thay đổi số lượng (tìm ra và + hoặc - số lượng)
+        console.log(maSPClick,soLuong);
+        let sp = gioHang.find(item => item.maSP === maSPClick);
+        if(sp){
+            sp.soLuong += soLuong;
+            if(sp.soLuong == 0) { //nếu số lượng == 0 thì gọi lại logic setState xoaGioHang
+              if(window.confirm('Bạn có muốn xoá không ?')){
+                xoaGioHang(sp.maSP);
+              }else {
+                sp.soLuong = 1;
+              }
+              return;
+            }
+        };
+        //setState
+        let gioHangUpdate = [...gioHang];
+        setGioHang(gioHangUpdate)
+    }
+
+    const thayDoiSoLuong = (maSPClick,soLuong) => { // maSP , 1 hoặc -1
+        //Thay đổi số lượng (tìm ra và + hoặc - số lượng)
+        console.log(maSPClick,soLuong);
+        let sp = gioHang.find(item => item.maSP === maSPClick);
+        if(sp){
+           sp.soLuong = soLuong;
+        };
+        //setState
+        let gioHangUpdate = [...gioHang];
+        setGioHang(gioHangUpdate)
+    }
+    // const giamSoLuong = () => {
+
+    // }
     return (
         <div className='container'>
             <h3 className='text-center'>Danh sách sản phẩm</h3>
-            <GioHang gioHang={gioHang} />
+            <GioHang gioHang={gioHang} xoaGioHang={xoaGioHang} tangGiamSoLuong={tangGiamSoLuong} thayDoiSoLuong={thayDoiSoLuong}/>
+
             <hr />
             <div className='row'>
                 {data.map((sp) => {

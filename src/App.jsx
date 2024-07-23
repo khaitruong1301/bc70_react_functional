@@ -12,6 +12,8 @@ import RenderWithMap from './RenderWithMap/RenderWithMap'
 import BTProductList from './RenderWithMap/BTProductList/BTProductList'
 import DanhSachSanPham from './LiftingStateup/DanhSachSanPham'
 import EXCarStore from './LiftingStateup/EXCarStore/EXCarStore'
+import ShoesPage from './ApiDemo/ShoesPage'
+import DemoLoginForm from './FormDemo/DemoLoginForm'
 
 const App = () => {
   
@@ -28,8 +30,10 @@ const App = () => {
         {/* <DemoProps /> */}
         {/* <RenderWithMap /> */}
         {/* <BTProductList /> */}
-        <DanhSachSanPham />
+        {/* <DanhSachSanPham /> */}
         {/* <EXCarStore /> */}
+        {/* <ShoesPage /> */}
+        <DemoLoginForm />
     </div>
   )
 }
