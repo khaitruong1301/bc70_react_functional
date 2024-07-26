@@ -14,6 +14,7 @@ import DanhSachSanPham from './LiftingStateup/DanhSachSanPham'
 import EXCarStore from './LiftingStateup/EXCarStore/EXCarStore'
 import ShoesPage from './ApiDemo/ShoesPage'
 import DemoLoginForm from './FormDemo/DemoLoginForm'
+import DemoLoginForm_useFormik from './FormDemo/DemoLoginForm_useFormik'
 
 const App = () => {
   
@@ -22,7 +23,6 @@ const App = () => {
         {/* <Databinding /> */}
         {/* <DemoHandleEvent /> */}
         {/* <DemoRenderCondition /> */}
-
         {/* <ChangeNumber /> */}
         {/* <ChangeFontSize /> */}
         {/* <TinkerApp /> */}
@@ -33,7 +33,8 @@ const App = () => {
         {/* <DanhSachSanPham /> */}
         {/* <EXCarStore /> */}
         {/* <ShoesPage /> */}
-        <DemoLoginForm />
+        {/* <DemoLoginForm /> */}
+        {/* <DemoLoginForm_useFormik /> */}
     </div>
   )
 }
