@@ -35,6 +35,11 @@ import Page404 from './pages/Page404'
 import Profile from './pages/Profile'
 import ForgotPass from './pages/ForgotPass'
 import Detail from './pages/Detail'
+//import css
+import './assets/styles/index.css';
+import AddProduct from './pages/ProductManagement/AddProduct'
+import EditProduct from './pages/ProductManagement/EditProduct'
+
 const App = () => {
 
   return (
@@ -47,6 +52,7 @@ const App = () => {
           <Route path='contact' element={<Login />}></Route>
           <Route path='about' element={<About />}></Route>
           <Route path='profile' element={<Profile />}></Route>
+          <Route path='search' element={<Search />}></Route>
           <Route path='detail'>
             <Route path=':prodId' element={<Detail />}></Route>
           </Route>
@@ -66,6 +72,11 @@ const App = () => {
         <Route path='admin' element={<AdminPageMaster />}>
           <Route index element={<DashBoard />}></Route>
           <Route path='usermanagement' element={<UserManagement />}></Route>
+          <Route path='add-product' element={<AddProduct />}></Route>
+          <Route path='product-edit'>
+            <Route path=':id' element={<EditProduct />}></Route>
+          </Route>
+          
           <Route path='productmanagement' element={<ProductManagement />}></Route>
           <Route path='*' element={<Page404 />} />
 

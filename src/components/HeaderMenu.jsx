@@ -10,6 +10,7 @@ const HeaderMenu = () => {
                 <NavLink to='/user/login' className={(props)=> props.isActive ? 'mx-2 bg-white text-dark p-3 text-decoration-none' : 'mx-2 text-white link'} style={(props)=> props.isActive ? {fontWeight:'bold'} : {} }>User Login</NavLink>
                 <NavLink to='/about' className={(props)=> props.isActive ? 'mx-2 bg-white text-dark p-3 text-decoration-none' : 'mx-2 text-white'}>About</NavLink>
                 <NavLink to='/contact' className={(props)=> props.isActive ? 'mx-2 bg-white text-dark p-3 text-decoration-none' : 'mx-2 text-white'}>contact</NavLink>
+                <NavLink to='/search' className={(props)=> props.isActive ? 'mx-2 bg-white text-dark p-3 text-decoration-none' : 'mx-2 text-white'}>Search</NavLink>
             </nav>
         </header>
     )
