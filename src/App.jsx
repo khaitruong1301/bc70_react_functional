@@ -39,6 +39,8 @@ import Detail from './pages/Detail'
 import './assets/styles/index.css';
 import AddProduct from './pages/ProductManagement/AddProduct'
 import EditProduct from './pages/ProductManagement/EditProduct'
+import Product from './pages/ProductManagement/Product'
+import AntDesignDemo from './AntDesignDemo/AntDesignDemo'
 
 const App = () => {
 
@@ -48,6 +50,7 @@ const App = () => {
       <Routes>
         <Route path='' element={<HomePageMaster />}>
           <Route index element={<HomePage />}></Route>
+          <Route path='antd' element={<AntDesignDemo />}></Route>
           <Route path='login' element={<Login />}></Route>
           <Route path='contact' element={<Login />}></Route>
           <Route path='about' element={<About />}></Route>
@@ -63,22 +66,28 @@ const App = () => {
           <Route path='login' element={<Login />}></Route>
           <Route path='register' element={<DemoLoginForm_useFormik />}></Route>
           <Route path='forgot-pass' element={<ForgotPass />}></Route>
-
           <Route path='*' element={<Navigate to="./login" />} />
-
         </Route>
 
 
         <Route path='admin' element={<AdminPageMaster />}>
           <Route index element={<DashBoard />}></Route>
-          <Route path='usermanagement' element={<UserManagement />}></Route>
+          <Route path='productmanagement' element={<ProductManagement />}></Route>
           <Route path='add-product' element={<AddProduct />}></Route>
+          <Route path='product' element={<Product />}></Route>
+          <Route path='product'>
+            <Route path=':id' element={<Product />}></Route>
+          </Route>
           <Route path='product-edit'>
             <Route path=':id' element={<EditProduct />}></Route>
+            
           </Route>
-          
-          <Route path='productmanagement' element={<ProductManagement />}></Route>
-          <Route path='*' element={<Page404 />} />
+
+
+
+          <Route path='usermanagement' element={<UserManagement />}></Route>
+
+          {/* <Route path='*' element={<Page404 />} /> */}
 
         </Route>
       </Routes>
