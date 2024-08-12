@@ -68,12 +68,12 @@ const App = () => {
             <Route path='search' element={<Search />}></Route>
             <Route path='antd-table' element={<AntDesignTable />}></Route>
             <Route path='antd-table-product' element={<ProductManagementAntd />}></Route>
-
             <Route path="redux" element={<>
-                <h1>Demo redux</h1>
-                <Outlet />
-              </>}>
-                <Route path='change-number' element={<ChangeNumberRedux />}></Route>
+              <h1>Demo redux</h1>
+              <Outlet />
+            </>}>
+              <Route path='change-number' element={<ChangeNumberRedux />}></Route>
+              <Route path='change-fontsize' element={<ChangeFontSize />}></Route>
             </Route>
 
 
@@ -89,8 +89,6 @@ const App = () => {
             <Route path='forgot-pass' element={<ForgotPass />}></Route>
             <Route path='*' element={<Navigate to="./login" />} />
           </Route>
-
-
           <Route path='admin' element={<AdminPageMaster />}>
             <Route index element={<DashBoard />}></Route>
             <Route path='productmanagement' element={<ProductManagement />}></Route>
