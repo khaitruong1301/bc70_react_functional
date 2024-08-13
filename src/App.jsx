@@ -47,6 +47,7 @@ import ProductManagementAntd from './AntDesignDemo/ProductManagementAntd'
 import { Provider } from 'react-redux';
 import { store } from './redux/store'
 import ChangeNumberRedux from './pages/reduxDemo/ChangeNumberRedux'
+import ChangeFontSizeRedux from './pages/reduxDemo/ChangeFontSizeRedux'
 
 
 const App = () => {
@@ -65,15 +66,16 @@ const App = () => {
             <Route path='contact' element={<Login />}></Route>
             <Route path='about' element={<About />}></Route>
             <Route path='profile' element={<Profile />}></Route>
+            <Route path='cart' element={<Cart />}></Route>
             <Route path='search' element={<Search />}></Route>
             <Route path='antd-table' element={<AntDesignTable />}></Route>
             <Route path='antd-table-product' element={<ProductManagementAntd />}></Route>
             <Route path="redux" element={<>
-              <h1>Demo redux</h1>
+              {/* <h1>Demo redux</h1> */}
               <Outlet />
             </>}>
               <Route path='change-number' element={<ChangeNumberRedux />}></Route>
-              <Route path='change-fontsize' element={<ChangeFontSize />}></Route>
+              <Route path='change-fontsize' element={<ChangeFontSizeRedux />}></Route>
             </Route>
 
 
