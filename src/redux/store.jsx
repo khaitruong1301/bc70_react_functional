@@ -4,6 +4,7 @@ import * as _ from 'lodash'
 import { numberReducer } from './reducers/numberReducer';
 import { fontSizeReducer } from './reducers/fontSizeReducer';
 import cartReducer from './reducers/cartReducer';
+import userReducer from './reducers/userReducer';
 
 
 const cartDefault = [
@@ -30,7 +31,8 @@ export const store = configureStore({
             return newCart;
         },
 
-        cartSliceReducer: cartReducer
+        cartSliceReducer: cartReducer,
+        userReducer:userReducer
     }
 })
 /*

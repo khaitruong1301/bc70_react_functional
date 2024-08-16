@@ -63,6 +63,7 @@ const App = () => {
             <Route index element={<HomePage />}></Route>
             <Route path='antd' element={<AntDesignDemo />}></Route>
             <Route path='login' element={<Login />}></Route>
+            <Route path='register' element={<Register />}></Route>
             <Route path='contact' element={<Login />}></Route>
             <Route path='about' element={<About />}></Route>
             <Route path='profile' element={<Profile />}></Route>

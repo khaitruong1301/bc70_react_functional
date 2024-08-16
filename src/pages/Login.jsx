@@ -1,6 +1,8 @@
+import axios from 'axios';
 import { replace, useFormik } from 'formik'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { setCookie, TOKEN, USER_LOGIN } from '../util/setting';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -9,15 +11,23 @@ const Login = () => {
       email: '',
       password: ''
     },
-    onSubmit: (values) => {
-      if(values.email === 'cybersoft' && values.password =='cybersoft'){
-        //Chuyển hướng profile
-        navigate('/profile')
-      }else {
-        //chuyển hướng forgot
-        // navigate('/user/forgot-pass',{replace:true}); //thay thế route hiện tại = route tương ứng
-        navigate('/user/forgot-pass');// đi đến route kế tiếp
-      }
+    onSubmit: async (values) => {
+        //Xử lý gửi dữ liệu về api login của backend để lấy token lưu vào máy client
+        const res = await axios({
+          url:'https://apistore.cybersoft.edu.vn/api/Users/signin',
+          method:'POST',
+          data: values
+        });
+        //Lưu token vào client (localstorage, cookie)
+        // localstorage (server không lấy được) 
+        console.log(res.data.content);
+        const token = res.data.content.accessToken; 
+        const userLogin = JSON.stringify(res.data.content);
+        localStorage.setItem(TOKEN,token);
+        localStorage.setItem(USER_LOGIN,userLogin);
+        //Lưu vào cookie
+        setCookie(TOKEN,token,7);
+      
     }
   })
 
