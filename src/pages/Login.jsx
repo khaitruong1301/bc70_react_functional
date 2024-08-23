@@ -3,31 +3,36 @@ import { replace, useFormik } from 'formik'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { setCookie, TOKEN, USER_LOGIN } from '../util/setting';
+import { loginActionAsync } from '../redux/reducers/userReducer';
+import { useDispatch } from 'react-redux';
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const frmLogin = useFormik({
     initialValues: {
       email: '',
       password: ''
     },
     onSubmit: async (values) => {
-        //Xử lý gửi dữ liệu về api login của backend để lấy token lưu vào máy client
-        const res = await axios({
-          url:'https://apistore.cybersoft.edu.vn/api/Users/signin',
-          method:'POST',
-          data: values
-        });
-        //Lưu token vào client (localstorage, cookie)
-        // localstorage (server không lấy được) 
-        console.log(res.data.content);
-        const token = res.data.content.accessToken; 
-        const userLogin = JSON.stringify(res.data.content);
-        localStorage.setItem(TOKEN,token);
-        localStorage.setItem(USER_LOGIN,userLogin);
-        //Lưu vào cookie
-        setCookie(TOKEN,token,7);
-      
+        // //Xử lý gửi dữ liệu về api login của backend để lấy token lưu vào máy client
+        // const res = await axios({
+        //   url:'https://apistore.cybersoft.edu.vn/api/Users/signin',
+        //   method:'POST',
+        //   data: values
+        // });
+        // //Lưu token vào client (localstorage, cookie)
+        // // localstorage (server không lấy được) 
+        // console.log(res.data.content);
+        // const token = res.data.content.accessToken; 
+        // const userLogin = JSON.stringify(res.data.content);
+        // localStorage.setItem(TOKEN,token);
+        // localStorage.setItem(USER_LOGIN,userLogin);
+        // //Lưu vào cookie
+        // setCookie(TOKEN,token,7);
+        //Cách 2: Sử dụng redux thunk 
+        const actionAsync = loginActionAsync(values);
+        dispatch(actionAsync);
     }
   })
 

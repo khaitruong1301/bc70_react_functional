@@ -1,17 +1,26 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom';
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import { addProductAction } from '../redux/reducers/cartReducer';
+import { http } from '../util/setting';
+import { getProductApiActionThunk } from '../redux/reducers/productReducer';
 const HomePage = () => {
+  //Lấy arrProduct từ redux
+  const {arrProduct} = useSelector(state => state.productReducer);
 
-  const [arrProduct,setArrProduct] = useState([]);
+
   //hook dispatch dùng để đưa dữ liệu lên store(redux) thông biến action{type,payload}
   const dispatch = useDispatch();
   const getAllProductApi = async ()=>{
-    const res = await axios.get('https://apistore.cybersoft.edu.vn/api/Product');
-    //Đưa dữ liệu từ api vào state arrProduct
-    setArrProduct(res.data.content)
+    /*
+      actionPayload: {type,payload}
+      actionThunk: (dispatch2) => {//Tự định nghĩa nội dung để có dữ liệu dispatch2 lên store}
+    */
+    
+    const actionThunk = getProductApiActionThunk();
+    dispatch(actionThunk);
+
   }
   useEffect(() => {
     getAllProductApi()

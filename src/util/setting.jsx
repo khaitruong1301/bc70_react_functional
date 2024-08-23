@@ -1,10 +1,13 @@
 import axios from "axios";
+//Cáu hình chuyển hướng trang khi không dùng hook
+import {createBrowserHistory} from 'history'
+
+
+
+export const navigateHistory = createBrowserHistory();
 
 export const TOKEN = 'accessToken';
 export const USER_LOGIN = 'userLogin';
-
-
-
 
 export function setCookie(name, value, days = 7) {
     var expires = "";
@@ -46,25 +49,60 @@ http.interceptors.request.use((req) => {
     }
     return req;
 });
-
 //Cấu hình response: 
 http.interceptors.response.use((res) => {
     return res;
-}, (err) => {
+}, async (err) => {
+    //Kiểm tra token có hợp lệ không
+    const jwtDecodeToken = decodeJWT(localStorage.getItem(TOKEN));
+    if(jwtDecodeToken){ //Khi decode token thành công mới check token còn hay hết hạn để refresh token
+        const isExpired = isTokenExpired(localStorage.getItem(TOKEN));
+        console.log('isExpired',isExpired)
+        //Nếu trước khi gửi token về server mà token hết hạn thì gọi api refresh token
+        if(isExpired) {
+            try {
+                const response = await axios({
+                    url: 'https://apistore.cybersoft.edu.vn/api/Users/RefeshToken',
+                    method:'post',
+                    headers: {
+                        Authorization: localStorage.getItem(TOKEN)
+                    }
+                });
+                //Nếu thành công thì lưu lại token mới 
+                localStorage.setItem(TOKEN, response.data.content.accessToken);
+                navigateHistory.push(window.location.pathname);
+            }catch (err) {
+                //Nếu refresh thất bại thì yêu cầu login lại
+                navigateHistory.push('/login');
+            }
+        }
+    }
+    console.log(isExpired);
     switch (err?.response.status) {
         case 400: {
-
+            //Chuyển hướng trang khi sai tham số
+            alert('Sai tham số!');
+            // window.location.href = '/'
+            navigateHistory.push('/');
         }; break;
         case 404: {
-
+            alert('Đường dẫn không tồn tại !');
+            navigateHistory.push('/');
         }; break;
         case 401: {
-            
+            /*
+                Trường hợp 2 : Token không hợp lệ
+            */
+            navigateHistory.push('/login');
         }; break;
         case 403: {
-
+            //Token hợp lệ tuy nhiên chưa đủ quyền truy cập
+            alert('Yêu cầu quản trị viên mới có thể vào được !');
+            navigateHistory.push('/');
         }; break;
         case 500: {
+            alert('Lỗi hệ thống !');
+            navigateHistory.push('/');
 
         }; break;
     }
@@ -83,3 +121,31 @@ http.interceptors.response.use((res) => {
     + Test lại api qua post man hoặc swagger với dữ liệu mẫu từ backend (BE đúng thì coi lại code). Nếu như post man hoặc swagger bị sai thì báo backend xử lý. 
 
 */
+
+function decodeJWT(token) {
+    try {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+
+        return JSON.parse(jsonPayload);
+    } catch (error) {
+        console.error('Lỗi khi decode token:', error);
+        return null;
+    }
+}
+function isTokenExpired(token) {
+    const decoded = decodeJWT(token);
+    if (!decoded) {
+        return true; // Nếu không decode được, coi như token đã hết hạn
+    }
+    const currentTime = Date.now() / 1000; // Thời gian hiện tại tính bằng giây
+    // Kiểm tra nếu thời gian hiện tại lớn hơn exp thì token đã hết hạn
+    if (decoded.exp && currentTime > decoded.exp) {
+        return true; // Token đã hết hạn
+    }
+
+    return false; // Token còn hiệu lực
+}

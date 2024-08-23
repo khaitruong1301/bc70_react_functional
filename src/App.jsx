@@ -48,72 +48,90 @@ import { Provider } from 'react-redux';
 import { store } from './redux/store'
 import ChangeNumberRedux from './pages/reduxDemo/ChangeNumberRedux'
 import ChangeFontSizeRedux from './pages/reduxDemo/ChangeFontSizeRedux'
-
+//Cấu hình CustomBrowserHistory
+import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom'
+import { navigateHistory } from './util/setting'
+//Cấu hình react-query 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+//Cấu hình react-query-dev-tool
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import ShoesShopRQ from './pages/ReactQueryDemo/ShoesShopRQ'
+import RQPageMaster from './MasterPages/RQPageMaster'
+import UserManagementRQ from './pages/ReactQueryDemo/UserManagementRQ'
+const queryClient = new QueryClient();
 
 const App = () => {
-
   const [state, setState] = useState();
-
   return (
-
-    <BrowserRouter>
+    <HistoryRouter history={navigateHistory}>
       <Provider store={store}>
-        <Routes>
-          <Route path='' element={<HomePageMaster />}>
-            <Route index element={<HomePage />}></Route>
-            <Route path='antd' element={<AntDesignDemo />}></Route>
-            <Route path='login' element={<Login />}></Route>
-            <Route path='register' element={<Register />}></Route>
-            <Route path='contact' element={<Login />}></Route>
-            <Route path='about' element={<About />}></Route>
-            <Route path='profile' element={<Profile />}></Route>
-            <Route path='cart' element={<Cart />}></Route>
-            <Route path='search' element={<Search />}></Route>
-            <Route path='antd-table' element={<AntDesignTable />}></Route>
-            <Route path='antd-table-product' element={<ProductManagementAntd />}></Route>
-            <Route path="redux" element={<>
-              {/* <h1>Demo redux</h1> */}
-              <Outlet />
-            </>}>
-              <Route path='change-number' element={<ChangeNumberRedux />}></Route>
-              <Route path='change-fontsize' element={<ChangeFontSizeRedux />}></Route>
+        <QueryClientProvider client={queryClient}>
+          <ReactQueryDevtools initialIsOpen={true} position='bottom' />
+          <Routes>
+            <Route path='' element={<HomePageMaster />}>
+              <Route index element={<HomePage />}></Route>
+              <Route path='antd' element={<AntDesignDemo />}></Route>
+              <Route path='login' element={<Login />}></Route>
+              <Route path='register' element={<Register />}></Route>
+              <Route path='contact' element={<Login />}></Route>
+              <Route path='about' element={<About />}></Route>
+              <Route path='profile' element={<Profile />}></Route>
+              <Route path='cart' element={<Cart />}></Route>
+              <Route path='search' element={<Search />}></Route>
+              <Route path='antd-table' element={<AntDesignTable />}></Route>
+              <Route path='antd-table-product' element={<ProductManagementAntd />}></Route>
+              <Route path="redux" element={<>
+                {/* <h1>Demo redux</h1> */}
+                <Outlet />
+              </>}>
+                <Route path='change-number' element={<ChangeNumberRedux />}></Route>
+                <Route path='change-fontsize' element={<ChangeFontSizeRedux />}></Route>
+              </Route>
+
+
+              <Route path='detail'>
+                <Route path=':prodId' element={<Detail />}></Route>
+              </Route>
+              <Route path='*' element={<Page404 />} />
+            </Route>
+            <Route path='user' element={<UserPageMaster />}>
+              <Route path='login' element={<Login />}></Route>
+              <Route path='register' element={<DemoLoginForm_useFormik />}></Route>
+              <Route path='forgot-pass' element={<ForgotPass />}></Route>
+              <Route path='*' element={<Navigate to="./login" />} />
+            </Route>
+            <Route path='admin' element={<AdminPageMaster />}>
+              <Route index element={<DashBoard />}></Route>
+              <Route path='productmanagement' element={<ProductManagement />}></Route>
+              <Route path='add-product' element={<AddProduct />}></Route>
+              <Route path='product' element={<Product />}></Route>
+              <Route path='product'>
+                <Route path=':id' element={<Product />}></Route>
+              </Route>
+              <Route path='product-edit'>
+                <Route path=':id' element={<EditProduct />}></Route>
+              </Route>
+
+
+
+              <Route path='usermanagement' element={<UserManagement />}></Route>
+
+              {/* <Route path='*' element={<Page404 />} /> */}
+
+            </Route>
+            
+            <Route path='react-query' element={<RQPageMaster />}>
+                <Route path='useClient-demo' element={<ShoesShopRQ />}></Route>
+                <Route path='usermutation-queryclient-demo' element={<UserManagementRQ />}></Route>
             </Route>
 
 
-            <Route path='detail'>
-              <Route path=':prodId' element={<Detail />}></Route>
-            </Route>
-            <Route path='*' element={<Page404 />} />
-          </Route>
 
-          <Route path='user' element={<UserPageMaster />}>
-            <Route path='login' element={<Login />}></Route>
-            <Route path='register' element={<DemoLoginForm_useFormik />}></Route>
-            <Route path='forgot-pass' element={<ForgotPass />}></Route>
-            <Route path='*' element={<Navigate to="./login" />} />
-          </Route>
-          <Route path='admin' element={<AdminPageMaster />}>
-            <Route index element={<DashBoard />}></Route>
-            <Route path='productmanagement' element={<ProductManagement />}></Route>
-            <Route path='add-product' element={<AddProduct />}></Route>
-            <Route path='product' element={<Product />}></Route>
-            <Route path='product'>
-              <Route path=':id' element={<Product />}></Route>
-            </Route>
-            <Route path='product-edit'>
-              <Route path=':id' element={<EditProduct />}></Route>
-            </Route>
-
-
-
-            <Route path='usermanagement' element={<UserManagement />}></Route>
-
-            {/* <Route path='*' element={<Page404 />} /> */}
-
-          </Route>
-        </Routes>
+          </Routes>
+        </QueryClientProvider>
       </Provider>
-    </BrowserRouter>
+
+    </HistoryRouter>
   )
 }
 

@@ -2,24 +2,21 @@ import React, { useEffect, useState } from 'react'
 import { TOKEN,http } from '../util/setting';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProfileActionAsync} from "../redux/reducers/userReducer";
 const Profile = () => {
-  const [profile, setProfile] = useState({});
+  // const [profile, setProfile] = useState({});
+  //Lấy userProfile từ redux về
+  const {profile} = useSelector(state => state.userReducer);
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
 
   const getProfileApi = async () => {
-    try {
-      const res = await http.post('/api/Users/getProfile');
-      
-      console.log(res.data.content);
-      //Đưa vào state
-      setProfile(res.data.content);
-    } catch (err) {
-      console.log(err);
-      //Thất bại thì sẽ chuyển hướng trang
-      alert('Đăng nhập để vào profile');
-      navigate('/login');
-    }
-
+    //redux action async (gọi api)
+    const actionAsync = getProfileActionAsync;//actionAsync là 1 hàm chưa gọi (callback có 1 tham số dispatch)
+    dispatch(actionAsync)
+    
   }
 
   useEffect(() => {

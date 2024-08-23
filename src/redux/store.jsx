@@ -5,6 +5,7 @@ import { numberReducer } from './reducers/numberReducer';
 import { fontSizeReducer } from './reducers/fontSizeReducer';
 import cartReducer from './reducers/cartReducer';
 import userReducer from './reducers/userReducer';
+import productReducer from './reducers/productReducer';
 
 
 const cartDefault = [
@@ -32,7 +33,8 @@ export const store = configureStore({
         },
 
         cartSliceReducer: cartReducer,
-        userReducer:userReducer
+        userReducer:userReducer,
+        productReducer: productReducer
     }
 })
 /*
