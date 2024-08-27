@@ -16,7 +16,7 @@ import ShoesPage from './ApiDemo/ShoesPage'
 import DemoLoginForm from './FormDemo/DemoLoginForm'
 import DemoLoginForm_useFormik from './FormDemo/DemoLoginForm_useFormik'
 //Cấu hình react router dom
-import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, Outlet, NavLink } from 'react-router-dom';
 import HomePage from './pages/HomePage'
 import Login from './pages/Login'
 import Search from './pages/Search'
@@ -58,6 +58,9 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import ShoesShopRQ from './pages/ReactQueryDemo/ShoesShopRQ'
 import RQPageMaster from './MasterPages/RQPageMaster'
 import UserManagementRQ from './pages/ReactQueryDemo/UserManagementRQ'
+import UseRefDemo from './pages/HookToiUuRender/UseRefDemo'
+import UseMemoDemo from './pages/HookToiUuRender/UseMemoDemo'
+import UseCallBackDemo from './pages/HookToiUuRender/UseCallBackDemo'
 const queryClient = new QueryClient();
 
 const App = () => {
@@ -124,7 +127,21 @@ const App = () => {
                 <Route path='useClient-demo' element={<ShoesShopRQ />}></Route>
                 <Route path='usermutation-queryclient-demo' element={<UserManagementRQ />}></Route>
             </Route>
-
+            
+            <Route path='hooks' element={<div className='container'>
+              <nav className='menu'>
+                <NavLink className='btn btn-dark ml-2 mt-2' to={'./useRef'}>useRef demo</NavLink>
+                <NavLink className='btn btn-dark ml-2 mt-2' to={'./useCallBack'}>useCallBack demo</NavLink>
+                <NavLink className='btn btn-dark ml-2 mt-2' to={'./useMemo'}>useMemo demo</NavLink>
+              </nav>
+              <h3>Hook tối ưu</h3>
+              <hr />
+              <Outlet/>
+            </div>}>
+              <Route path='useRef' element={<UseRefDemo />}></Route>
+              <Route path='useCallBack' element={<UseCallBackDemo />}></Route>
+              <Route path='useMemo' element={<UseMemoDemo />}></Route>
+            </Route>
 
 
           </Routes>

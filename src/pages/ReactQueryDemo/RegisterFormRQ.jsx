@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { queryOptions, useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react'
 import { registerApi } from '../../api/userApi';
 
@@ -17,7 +17,7 @@ const RegisterFormRQ = () => {
         onSuccess: (data) => {
             console.log('data',data)
             //Thành công
-            queryClient.invalidateQueries('getAllUser')
+            queryClient.invalidateQueries({queryKey:['userPaging']})
         },
         onError: (err) => {
             //thất bại
