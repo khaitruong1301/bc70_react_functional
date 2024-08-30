@@ -61,6 +61,11 @@ import UserManagementRQ from './pages/ReactQueryDemo/UserManagementRQ'
 import UseRefDemo from './pages/HookToiUuRender/UseRefDemo'
 import UseMemoDemo from './pages/HookToiUuRender/UseMemoDemo'
 import UseCallBackDemo from './pages/HookToiUuRender/UseCallBackDemo'
+import CustomHookDemo from './pages/CustomHookDemo/CustomHookDemo'
+import DemoContainer from './pages/DemoContainerComponent/DemoContainer'
+import PopupModalContainer from './ContainerComponent/PopupModalContainer'
+import DemoContainerRedux from './pages/DemoContainerComponent/DemoContainerRedux'
+import ResponsiveItem from './ContainerComponent/ResponsiveItem'
 const queryClient = new QueryClient();
 
 const App = () => {
@@ -70,6 +75,7 @@ const App = () => {
       <Provider store={store}>
         <QueryClientProvider client={queryClient}>
           <ReactQueryDevtools initialIsOpen={true} position='bottom' />
+          <PopupModalContainer />
           <Routes>
             <Route path='' element={<HomePageMaster />}>
               <Route index element={<HomePage />}></Route>
@@ -133,6 +139,10 @@ const App = () => {
                 <NavLink className='btn btn-dark ml-2 mt-2' to={'./useRef'}>useRef demo</NavLink>
                 <NavLink className='btn btn-dark ml-2 mt-2' to={'./useCallBack'}>useCallBack demo</NavLink>
                 <NavLink className='btn btn-dark ml-2 mt-2' to={'./useMemo'}>useMemo demo</NavLink>
+                <NavLink className='btn btn-dark ml-2 mt-2' to={'./ch-useGetDataApi'}>customhook-getdataapi</NavLink>
+                <NavLink className='btn btn-dark ml-2 mt-2' to={'./demo-container'}>Demo container component modal</NavLink>
+                <NavLink className='btn btn-dark ml-2 mt-2' to={'./demo-container-redux'}>Demo container component modal - redux</NavLink>
+                <NavLink className='btn btn-dark ml-2 mt-2' to={'./demo-container-responsive'}>Demo container component responsive item</NavLink>
               </nav>
               <h3>Hook tối ưu</h3>
               <hr />
@@ -141,13 +151,17 @@ const App = () => {
               <Route path='useRef' element={<UseRefDemo />}></Route>
               <Route path='useCallBack' element={<UseCallBackDemo />}></Route>
               <Route path='useMemo' element={<UseMemoDemo />}></Route>
+              <Route path='ch-useGetDataApi' element={<CustomHookDemo />}></Route>
+              <Route path='demo-container' element={<DemoContainer />}></Route>
+              <Route path='demo-container-redux' element={<DemoContainerRedux />}></Route>
+              <Route path='demo-container-responsive' element={<ResponsiveItem component={<HomePage />} mobileComponent={<div>Mobile home</div>} />}></Route>
             </Route>
 
 
           </Routes>
         </QueryClientProvider>
       </Provider>
-
+      
     </HistoryRouter>
   )
 }

@@ -30,7 +30,7 @@ const HomePage = () => {
       <h3 className='text-center'>Shoes shop</h3>
       <div className='row'>
         {arrProduct.map((item => {
-          return <div className='col-4 mt-2' key={item.id}>
+          return <div className='col-md-4 mt-2' key={item.id}>
             <div className='card'>
               <img src={item.image} alt='...' />
               <div className='card-body'>

@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { handleChangeInputAction } from '../redux/reducers/userReducer';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+import { setFunctionSubmitModalAction } from '../redux/reducers/modalReducer';
 const Register = () => {
   const { userRegister } = useSelector(state => state.userReducer);
   const dispatch = useDispatch();
@@ -34,6 +35,20 @@ const Register = () => {
       console.log(err);
     }
   }
+
+  useEffect(()=>{
+    const action = setFunctionSubmitModalAction(handleSubmit);
+    dispatch(action);
+    return () => {
+      //Khi component này mất khỏi giao diện thì sẽ dispatch reset function submit của modal
+      const action = setFunctionSubmitModalAction((e) => {
+        console.log('submit default');
+      });
+      dispatch(action);
+    }
+  },[]);
+
+
   console.log('render')
   return (
     <div className='container'>

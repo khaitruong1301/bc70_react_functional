@@ -6,6 +6,7 @@ import { fontSizeReducer } from './reducers/fontSizeReducer';
 import cartReducer from './reducers/cartReducer';
 import userReducer from './reducers/userReducer';
 import productReducer from './reducers/productReducer';
+import modalReducer from './reducers/modalReducer';
 
 
 const cartDefault = [
@@ -34,7 +35,8 @@ export const store = configureStore({
 
         cartSliceReducer: cartReducer,
         userReducer:userReducer,
-        productReducer: productReducer
+        productReducer: productReducer,
+        modalReducer: modalReducer
     }
 })
 /*
