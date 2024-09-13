@@ -66,6 +66,9 @@ import DemoContainer from './pages/DemoContainerComponent/DemoContainer'
 import PopupModalContainer from './ContainerComponent/PopupModalContainer'
 import DemoContainerRedux from './pages/DemoContainerComponent/DemoContainerRedux'
 import ResponsiveItem from './ContainerComponent/ResponsiveItem'
+import DeskTopHome from './pages/HomePage/DeskTopHome'
+import MobileHome from './pages/HomePage/MobileHome'
+import HooksPageMaster from './MasterPages/HooksPageMaster'
 const queryClient = new QueryClient();
 
 const App = () => {
@@ -134,27 +137,14 @@ const App = () => {
                 <Route path='usermutation-queryclient-demo' element={<UserManagementRQ />}></Route>
             </Route>
             
-            <Route path='hooks' element={<div className='container'>
-              <nav className='menu'>
-                <NavLink className='btn btn-dark ml-2 mt-2' to={'./useRef'}>useRef demo</NavLink>
-                <NavLink className='btn btn-dark ml-2 mt-2' to={'./useCallBack'}>useCallBack demo</NavLink>
-                <NavLink className='btn btn-dark ml-2 mt-2' to={'./useMemo'}>useMemo demo</NavLink>
-                <NavLink className='btn btn-dark ml-2 mt-2' to={'./ch-useGetDataApi'}>customhook-getdataapi</NavLink>
-                <NavLink className='btn btn-dark ml-2 mt-2' to={'./demo-container'}>Demo container component modal</NavLink>
-                <NavLink className='btn btn-dark ml-2 mt-2' to={'./demo-container-redux'}>Demo container component modal - redux</NavLink>
-                <NavLink className='btn btn-dark ml-2 mt-2' to={'./demo-container-responsive'}>Demo container component responsive item</NavLink>
-              </nav>
-              <h3>Hook tối ưu</h3>
-              <hr />
-              <Outlet/>
-            </div>}>
+            <Route path='hooks' element={<HooksPageMaster />}>
               <Route path='useRef' element={<UseRefDemo />}></Route>
               <Route path='useCallBack' element={<UseCallBackDemo />}></Route>
               <Route path='useMemo' element={<UseMemoDemo />}></Route>
               <Route path='ch-useGetDataApi' element={<CustomHookDemo />}></Route>
               <Route path='demo-container' element={<DemoContainer />}></Route>
               <Route path='demo-container-redux' element={<DemoContainerRedux />}></Route>
-              <Route path='demo-container-responsive' element={<ResponsiveItem component={<HomePage />} mobileComponent={<div>Mobile home</div>} />}></Route>
+              <Route path='demo-container-responsive' element={<ResponsiveItem component={<DeskTopHome />} mobileComponent={<MobileHome />} />}></Route>
             </Route>
 
 
